@@ -5,12 +5,12 @@ power_data <- read.csv2 (file = "Course Project 1/household_power_consumption.tx
                          , dec ="."
                          , na.strings ="?")
 
-library (dplyr)
 ## get rid of superfluous data
-power_data <- filter(power_data, Date=="2/1/2007" | Date=="2/2/2007")
+power_data <- power_data[power_data$Date == "1/2/2007" | power_data$Date == "2/2/2007", ]
 
-# global_active_power to numeric -> maybe set this as column class during loading?
-# power_data$Global_active_power <- as.numeric(power_data$Global_active_power)
+# convert date and time strings into one datetime object
+power_data$DateTime = paste(power_data$Date, power_data$Time)
+power_data$DateTime <- strptime(power_data$DateTime, format="%d/%m/%Y %H:%M:%S")
 
 ###For each plot you should
 #
@@ -26,13 +26,6 @@ power_data <- filter(power_data, Date=="2/1/2007" | Date=="2/2/2007")
 ## Plot 2
 ## set current locate to US to get english Daynames
 Sys.setlocale("LC_TIME", "US") # Windows
-
-### convert to date time and weekday
-
-power_data$DateTime <- with (power_data, paste(Date, Time))
-power_data$DateTime <- strptime (power_data$DateTime
-                                 , format="%m/%d/%Y %H:%M:%S")
-power_data$DateTime <-  as.POSIXct(power_data$DateTime)
 
 png ("plot2.png", width = 480, height = 480, units="px")
 
