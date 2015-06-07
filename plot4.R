@@ -26,10 +26,11 @@ power_data$DateTime <- strptime(power_data$DateTime, format="%d/%m/%Y %H:%M:%S")
 ## set current locate to US to get english Daynames
 Sys.setlocale("LC_TIME", "US") # Windows
 
-## Plot 3
+## Plot 4
 png ("plot4.png", width = 480, height = 480, units="px")
 
 par(mfrow=c(2,2))
+
 plot(power_data$DateTime, power_data$Global_active_power, type="l",
      xlab="", ylab="Global Active Power")
 plot(power_data$DateTime, power_data$Voltage, type="l",
